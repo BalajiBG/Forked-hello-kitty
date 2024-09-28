@@ -1,0 +1,84 @@
+{
+  "module": {
+    "appcd_5a8b32dd-0f50-4086-9584-2076a2b2ebfb": {
+      "name": "aws_s3-forked-hello-kitty-policy",
+      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowKmsAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\",\n        \"kms:GenerateDataKey\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_7742ac21-8632-5e41-9598-82b4152bd845.kms_arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"ForkedhellokittyIMAGESBUCKETS3Bucket7742ac2186325e41959882b4152bd845\",\n      \"Action\": [\n        \"s3:PutObject\",\n        \"s3:ListBucket\",\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_7742ac21-8632-5e41-9598-82b4152bd845.arn}\",\n        \"${module.appcd_7742ac21-8632-5e41-9598-82b4152bd845.arn}/*\"\n      ]\n    }\n  ]\n}",
+      "role": "${module.appcd_9dc3160d-75cf-5aca-ae0c-732652a71bc1.name}",
+      "role_type": "Custom",
+      "source": "./modules/aws_iam_role_policy"
+    },
+    "appcd_72b072fa-0351-56ad-947f-0b584f59cc69": {
+      "name": "/aws/lambda/Forked-hello-kitty-function-Balaji-BG",
+      "retention_in_days": 7,
+      "source": "./modules/aws_cloudwatch_log_group",
+      "tags": {
+        "appstack": "LearningStackGen",
+        "component": "Forked-hello-kitty"
+      }
+    },
+    "appcd_7742ac21-8632-5e41-9598-82b4152bd845": {
+      "block_public_access": true,
+      "bucket_name": "Balaji-BG",
+      "bucket_policy": "",
+      "enable_versioning": true,
+      "enable_website_configuration": false,
+      "source": "./modules/aws_s3",
+      "sse_algorithm": "aws:kms",
+      "tags": {
+        "appstack": "LearningStackGen",
+        "component": "Forked-hello-kitty"
+      },
+      "website_error_document": "404.html",
+      "website_index_document": "index.html"
+    },
+    "appcd_9dc3160d-75cf-5aca-ae0c-732652a71bc1": {
+      "assume_role_policy": "{\n\t\"Version\": \"2012-10-17\",\n\t\"Statement\": {\n\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\"Effect\": \"Allow\",\n\t\t\"Principal\": {\n\t\t\t\"Service\": \"lambda.amazonaws.com\"\n\t\t}\n\t}\n}",
+      "description": null,
+      "force_detach_policies": true,
+      "inline_policy": [],
+      "name": "Forked-hello-kitty-role-Balaji-BG",
+      "source": "./modules/aws_iam_role",
+      "tags": {
+        "appstack": "LearningStackGen",
+        "component": "Forked-hello-kitty"
+      }
+    },
+    "appcd_9dc9b835-b99e-5b13-836b-d208d30c92ec": {
+      "architecture": "x86_64",
+      "authorization_type": "NONE",
+      "cors": [],
+      "create_function_url": true,
+      "description": null,
+      "environment_variables": {
+        "IMAGES_BUCKET": "Balaji-BG"
+      },
+      "event_source_arn": null,
+      "event_source_mapping": [],
+      "filename": null,
+      "function_name": "Forked-hello-kitty-function-Balaji-BG",
+      "handler": "main.lambda_handler",
+      "log_format": null,
+      "log_group_name": "${module.appcd_72b072fa-0351-56ad-947f-0b584f59cc69.name}",
+      "memory_size": 128,
+      "role": "${module.appcd_9dc3160d-75cf-5aca-ae0c-732652a71bc1.arn}",
+      "runtime": "python3.8",
+      "s3_bucket": "stackgen-builds",
+      "s3_key": "build/app.zip",
+      "s3_object_version": null,
+      "source": "./modules/aws_lambda",
+      "system_log_level": null,
+      "tags": {
+        "appstack": "LearningStackGen",
+        "component": "Forked-hello-kitty"
+      },
+      "timeout": 3
+    },
+    "appcd_e2319475-4706-409e-8d0e-e3f8e749e0da": {
+      "name": "Writer",
+      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"CloudWatchLogGroup72b072fa035156ad947f0b584f59cc690\",\n      \"Action\": [\n        \"logs:CreateLogGroup\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_72b072fa-0351-56ad-947f-0b584f59cc69.arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"CloudWatchLogGroup72b072fa035156ad947f0b584f59cc691\",\n      \"Action\": [\n        \"logs:CreateLogStream\",\n        \"logs:PutLogEvents\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_72b072fa-0351-56ad-947f-0b584f59cc69.arn}:*\"\n      ]\n    }\n  ]\n}",
+      "role": "${module.appcd_9dc3160d-75cf-5aca-ae0c-732652a71bc1.name}",
+      "role_type": "Writer",
+      "source": "./modules/aws_iam_role_policy"
+    }
+  }
+}

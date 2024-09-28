@@ -36,7 +36,7 @@
       "description": null,
       "force_detach_policies": true,
       "inline_policy": [],
-      "name": "Forked-hello-kitty-role-Balaji-BG",
+      "name": "Forked-hello-kitty-role-Balaji-BG2",
       "source": "./modules/aws_iam_role",
       "tags": {
         "appstack": "LearningStackGen",

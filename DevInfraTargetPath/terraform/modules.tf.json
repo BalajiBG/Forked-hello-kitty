@@ -18,7 +18,7 @@
     },
     "appcd_7742ac21-8632-5e41-9598-82b4152bd845": {
       "block_public_access": true,
-      "bucket_name": "Balaji-BG",
+      "bucket_name": "balaji-bg",
       "bucket_policy": "",
       "enable_versioning": true,
       "enable_website_configuration": false,

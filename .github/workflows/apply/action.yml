@@ -29,7 +29,7 @@ runs:
     - name: Create backend.tf
       shell: bash
       run: |
-        cat <<EOF > ./infra/terraform/backend.tf
+        cat <<EOF > ./DevInfraTargetPath/terraform/backend.tf
         terraform {
           backend "s3" {}
         }
@@ -42,13 +42,13 @@ runs:
           -backend-config="bucket=${{ inputs.tf_state_bucket }}" \
           -backend-config="key=${{ inputs.tf_state_key }}" \
           -backend-config="region=${{ inputs.aws_region }}"
-      working-directory: ./infra/terraform
+      working-directory: ./DevInfraTargetPath/terraform
 
     - name: TF Apply
       shell: bash
       id: apply
       run: terraform apply -no-color --auto-approve --var region=${{ inputs.aws_region }}
-      working-directory: ./infra/terraform
+      working-directory: ./DevInfraTargetPath/terraform
       continue-on-error: true
 
     - name: APP URL
